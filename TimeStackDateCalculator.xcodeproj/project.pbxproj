@@ -6,8 +6,24 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		85C54A3C2D63F15900D7670B /* TestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 85C54A3B2D63F15900D7670B /* TestPlan.xctestplan */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		85C54A452D63F16B00D7670B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85C54A162D6354A100D7670B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85C54A1D2D6354A100D7670B;
+			remoteInfo = TimeStackDateCalculator;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		85C54A1E2D6354A100D7670B /* TimeStackDateCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeStackDateCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		85C54A3B2D63F15900D7670B /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
+		85C54A412D63F16B00D7670B /* TimeStackDateCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeStackDateCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,10 +45,22 @@
 			path = TimeStackDateCalculator;
 			sourceTree = "<group>";
 		};
+		85C54A422D63F16B00D7670B /* TimeStackDateCalculatorTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TimeStackDateCalculatorTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		85C54A1B2D6354A100D7670B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85C54A3E2D63F16B00D7670B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -45,7 +73,9 @@
 		85C54A152D6354A100D7670B = {
 			isa = PBXGroup;
 			children = (
+				85C54A3B2D63F15900D7670B /* TestPlan.xctestplan */,
 				85C54A202D6354A100D7670B /* TimeStackDateCalculator */,
+				85C54A422D63F16B00D7670B /* TimeStackDateCalculatorTests */,
 				85C54A1F2D6354A100D7670B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				85C54A1E2D6354A100D7670B /* TimeStackDateCalculator.app */,
+				85C54A412D63F16B00D7670B /* TimeStackDateCalculatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +114,29 @@
 			productReference = 85C54A1E2D6354A100D7670B /* TimeStackDateCalculator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		85C54A402D63F16B00D7670B /* TimeStackDateCalculatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85C54A472D63F16B00D7670B /* Build configuration list for PBXNativeTarget "TimeStackDateCalculatorTests" */;
+			buildPhases = (
+				85C54A3D2D63F16B00D7670B /* Sources */,
+				85C54A3E2D63F16B00D7670B /* Frameworks */,
+				85C54A3F2D63F16B00D7670B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				85C54A462D63F16B00D7670B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				85C54A422D63F16B00D7670B /* TimeStackDateCalculatorTests */,
+			);
+			name = TimeStackDateCalculatorTests;
+			packageProductDependencies = (
+			);
+			productName = TimeStackDateCalculatorTests;
+			productReference = 85C54A412D63F16B00D7670B /* TimeStackDateCalculatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -95,6 +149,10 @@
 				TargetAttributes = {
 					85C54A1D2D6354A100D7670B = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					85C54A402D63F16B00D7670B = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 85C54A1D2D6354A100D7670B;
 					};
 				};
 			};
@@ -113,12 +171,21 @@
 			projectRoot = "";
 			targets = (
 				85C54A1D2D6354A100D7670B /* TimeStackDateCalculator */,
+				85C54A402D63F16B00D7670B /* TimeStackDateCalculatorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		85C54A1C2D6354A100D7670B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85C54A3C2D63F15900D7670B /* TestPlan.xctestplan in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85C54A3F2D63F16B00D7670B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +202,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85C54A3D2D63F16B00D7670B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		85C54A462D63F16B00D7670B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85C54A1D2D6354A100D7670B /* TimeStackDateCalculator */;
+			targetProxy = 85C54A452D63F16B00D7670B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		85C54A332D6354A300D7670B /* Debug */ = {
@@ -319,6 +401,52 @@
 			};
 			name = Release;
 		};
+		85C54A482D63F16B00D7670B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6UWE2EP59T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.vnnrz.TimeStackDateCalculatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeStackDateCalculator.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TimeStackDateCalculator";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		85C54A492D63F16B00D7670B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6UWE2EP59T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.vnnrz.TimeStackDateCalculatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeStackDateCalculator.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TimeStackDateCalculator";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -336,6 +464,15 @@
 			buildConfigurations = (
 				85C54A332D6354A300D7670B /* Debug */,
 				85C54A342D6354A300D7670B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85C54A472D63F16B00D7670B /* Build configuration list for PBXNativeTarget "TimeStackDateCalculatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85C54A482D63F16B00D7670B /* Debug */,
+				85C54A492D63F16B00D7670B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

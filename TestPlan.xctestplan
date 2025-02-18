@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "76AC12DE-548C-4838-BA76-4CB91A28E2B6",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:TimeStackDateCalculator.xcodeproj",
+        "identifier" : "85C54A402D63F16B00D7670B",
+        "name" : "TimeStackDateCalculatorTests"
+      }
+    }
+  ],
+  "version" : 1
+}
