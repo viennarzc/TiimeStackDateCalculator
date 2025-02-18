@@ -16,6 +16,7 @@ struct DatePeriodItemModel: Identifiable {
 
 struct AllDatesMainView: View {
     @State private var date: Date = Date()
+    @State private var isPresentingAddIntervalSheet: Bool = false
 
     @State private var dates: [DatePeriodItemModel] = [
         .init(date: Date.distantFuture, relativeDate: Date.now, label: ""),
@@ -40,11 +41,10 @@ struct AllDatesMainView: View {
         VStack(spacing: 8) {
             ScrollView {
                 Spacer(minLength: 90)
-
-                Section {
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 180, maximum: 300))]
-                    ) {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 180, maximum: 300))], pinnedViews: [.sectionHeaders]
+                ) {
+                    Section {
                         buildPeriodView(date: Date.now)
                         buildPeriodView(date: Date.now.oneYearAgo)
                         buildPeriodView(date: Date.now.oneYearFromNow)
@@ -52,101 +52,119 @@ struct AllDatesMainView: View {
                         buildPeriodView(date: Date.now.sevenDaysFromNow)
                         buildPeriodView(date: Date.now.threeMonthsAgo)
                         buildPeriodView(date: Date.now.threeMonthsFromNow)
+
+                    } header: {
+                        Label("Today: **\(Date.now.formatted(date: .long, time: .omitted))**", systemImage: "calendar.badge.checkmark")
+                            .symbolRenderingMode(.hierarchical)
+                            .font(.title3)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
+                            .padding(.vertical)
+                            .background(
+                                Capsule().fill(Color(.systemBackground))
+                            )
+                            .padding(.horizontal)
                     }
-                    .padding(.horizontal)
 
-                } header: {
-                    Text(
-                        "Today: **\(Date.now.formatted(date: .long, time: .omitted))**"
-                    )
-                    .font(.title3)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                }
+                    Divider()
 
-                Divider()
+                    Spacer(minLength: 32)
 
-                Spacer(minLength: 32)
+                    Section {
+                        GroupBox {
+                            Button(action: {
+                                isPresentingAddIntervalSheet = true
+                            }) {
+                                Label {
+                                    Text("Add Custom Interval")
+                                        .frame(
+                                            maxWidth: 150, minHeight: 70,
+                                            maxHeight: 150)
+                                        .fontWeight(.bold)
+                                } icon: {
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 24))
+                                }
+                            }
+                        }
 
-                Section {
-//                    GroupBox {
-//                        Button(action: { }) {
-//                            Label {
-//                                Text("Add Custom Interval")
-//                            } icon: {
-//
-//                                Image(systemName: "plus")
-//                                    .font(.system(size: 24))
-//                            }
-//
-//                        }
-//                    }
-
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 180, maximum: 300))]
-                    ) {
                         ForEach(dates) { date in
                             buildPeriodView(
                                 date: date.date,
                                 relativeTo: date.relativeDate
                             )
                         }
-                    }
-                    .padding(.horizontal)
 
-                } header: {
-                    Text("From: **\(date.formatted(date: .long, time: .omitted))**")
-                        .font(.title3)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
-
-                    GroupBox {
-                        DatePicker(
-                            "Select a date",
-                            selection: $date.animation(.spring),
-                            displayedComponents: .date
-                        )
-                        .datePickerStyle(CompactDatePickerStyle())
-                        .onChange(of: date) {
-                            _,
-                                newValue in
-                            debugPrint(newValue)
-                            withAnimation {
-                                dates = [
-                                    .init(
-                                        date: newValue.oneYearFromNow,
-                                        relativeDate: newValue,
-                                        label: ""
-                                    ),
-                                    .init(
-                                        date: newValue.oneYearAgo, relativeDate: newValue,
-                                        label: ""
-                                    ),
-                                    .init(
-                                        date: newValue.sevenDaysFromNow,
-                                        relativeDate: newValue,
-                                        label: ""
-                                    ),
-                                    .init(
-                                        date: newValue.threeMonthsAgo, relativeDate: newValue,
-                                        label: ""
-                                    ),
-                                    .init(
-                                        date: newValue.sevenDaysAgo, relativeDate: newValue,
-                                        label: ""
-                                    ),
-                                    .init(
-                                        date: newValue.threeMonthsFromNow, relativeDate: newValue,
-                                        label: ""
-                                    ),
-                                ]
+                    } header: {
+                        VStack {
+                            
+                            Label("From: **\(date.formatted(date: .long, time: .omitted))**", systemImage: "calendar.badge.clock")
+                                .symbolRenderingMode(.hierarchical)
+                                .font(.title3)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal)
+                            
+                            GroupBox {
+                                DatePicker(
+                                    "Select a date",
+                                    selection: $date.animation(.spring),
+                                    displayedComponents: .date
+                                )
+                                .datePickerStyle(CompactDatePickerStyle())
+                                .onChange(of: date) {
+                                    _,
+                                    newValue in
+                                    debugPrint(newValue)
+                                    withAnimation {
+                                        dates = [
+                                            .init(
+                                                date: newValue.oneYearFromNow,
+                                                relativeDate: newValue,
+                                                label: ""
+                                            ),
+                                            .init(
+                                                date: newValue.oneYearAgo, relativeDate: newValue,
+                                                label: ""
+                                            ),
+                                            .init(
+                                                date: newValue.sevenDaysFromNow,
+                                                relativeDate: newValue,
+                                                label: ""
+                                            ),
+                                            .init(
+                                                date: newValue.threeMonthsAgo, relativeDate: newValue,
+                                                label: ""
+                                            ),
+                                            .init(
+                                                date: newValue.sevenDaysAgo, relativeDate: newValue,
+                                                label: ""
+                                            ),
+                                            .init(
+                                                date: newValue.threeMonthsFromNow, relativeDate: newValue,
+                                                label: ""
+                                            ),
+                                        ]
+                                    }
+                                }
                             }
+                            .padding(.horizontal)
+                            .padding(.bottom, 24)
+                            .backgroundStyle(.quaternary)
                         }
+                        .padding(.top, 24)
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color(.systemBackground))
+                        )
+                        .padding([.horizontal])
                     }
-                    .padding(.horizontal)
-                    .backgroundStyle(.quaternary)
                 }
+                .padding(.horizontal)
             }
+        }
+        .sheet(isPresented: $isPresentingAddIntervalSheet) {
+            AddIntervalView()
+                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -154,4 +172,3 @@ struct AllDatesMainView: View {
 #Preview {
     AllDatesMainView()
 }
-
