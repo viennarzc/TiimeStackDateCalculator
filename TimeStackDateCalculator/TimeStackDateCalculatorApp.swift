@@ -14,7 +14,7 @@ struct TimeStackDateCalculatorApp: App {
     var body: some Scene {
         WindowGroup {
             AllDatesMainView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

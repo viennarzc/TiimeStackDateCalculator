@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct AddIntervalView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) var dismiss
+    
     enum Component: CaseIterable {
         case year
         case month
         case day
 
-        var displayTite: String {
+        var displayTitle: String {
             switch self {
             case .year:
                 return "Year"
@@ -61,7 +64,7 @@ struct AddIntervalView: View {
                         HStack(spacing: 0) {
                             IntegerTextField(
                                 value: $value,
-                                placeholder: "Number of \(component.displayTite)s"
+                                placeholder: "Number of \(component.displayTitle)s"
                             )
                             .font(.title2.bold())
                             .onChange(of: value) { _, newValue in
@@ -70,7 +73,7 @@ struct AddIntervalView: View {
                             
                             Picker(selection: $component) {
                                 ForEach(Component.allCases, id: \.self) { item in
-                                    Text(item.displayTite).tag(item)
+                                    Text(item.displayTitle).tag(item)
                                 }
                                 
                             } label: {
@@ -89,11 +92,6 @@ struct AddIntervalView: View {
                             .labelsVisibility(.hidden)
                             .pickerStyle(MenuPickerStyle())
                         }
-                        
-                        HStack {
-                            
-                            
-                        }
                     }
                     
                     VStack {
@@ -104,7 +102,7 @@ struct AddIntervalView: View {
                             .foregroundStyle(.secondary)
                         
                         Text(
-                            "**^[\(value) \(component.displayTite.lowercased())](inflect: true) \(chronology.displayText2.lowercased())** \(Date.now.formatted(date: .long, time: .omitted))"
+                            "**^[\(value) \(component.displayTitle.lowercased())](inflect: true) \(chronology.displayText2.lowercased())** \(Date.now.formatted(date: .long, time: .omitted))"
                         )
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -112,9 +110,28 @@ struct AddIntervalView: View {
 
                 Section {
                     Button {
+                        
+                        let newItem: TimeIntervalEntity = TimeIntervalEntity(context: viewContext)
+                        
+                        newItem.id = UUID()
+                        newItem.timestamp = Date.now
+                        newItem.label = "Custom"
+                        newItem.intervalUnit = component.displayTitle
+                            .lowercased()
+                        newItem.intervalValue = Int16(value)
+                        
+                        do {
+                            try viewContext.save()
+                            debugPrint("Successfully saved new item")
+                            dismiss.callAsFunction()
+
+                        } catch let error {
+                            debugPrint("Error encountered when adding a new item", error.localizedDescription)
+                        }
+                        
                     } label: {
                         Text("Save")
-                            .frame(maxWidth: 300, maxHeight: 32)
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .fontWeight(.bold)
                     }
                 }
@@ -155,5 +172,48 @@ private class IntegerTextFieldValue: ObservableObject {
                 value = numbersOnly
             }
         }
+    }
+}
+
+
+extension TimeIntervalEntity {
+    func toDatePeriodItemModel(withBase newBaseDate: Date = Date.now) -> DatePeriodItemModel {
+        // Calculate the relative date based on intervalUnit and intervalValue
+        let relativeDate: Date
+        
+        switch intervalUnit {
+        case "year":
+            relativeDate = Calendar.current
+                .date(
+                    byAdding: .year,
+                    value: Int(intervalValue),
+                    to: baseDate ?? newBaseDate
+                ) ?? Date.now
+        case "month":
+            relativeDate = Calendar.current
+                .date(
+                    byAdding: .month,
+                    value: Int(intervalValue),
+                    to: baseDate ?? newBaseDate
+                ) ?? Date.now
+        case "day":
+            relativeDate = Calendar.current
+                .date(
+                    byAdding: .day,
+                    value: Int(intervalValue),
+                    to: baseDate ?? newBaseDate
+                ) ?? Date.now
+        default:
+            // Default to the base date if intervalUnit is not recognized
+            relativeDate = Date.now
+        }
+        
+        return DatePeriodItemModel(
+            relativeDate: relativeDate,
+            baseDate: baseDate ?? newBaseDate,
+            label: label ?? "Label",
+            isCustom: true,
+            item: self
+        )
     }
 }
